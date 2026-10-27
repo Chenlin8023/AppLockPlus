@@ -1,0 +1,18 @@
+# theos 构建产物
+.theos/
+obj/
+packages/
+
+# 构建产物不入库, 通过 GitHub Release 分发
+AppLockPlus.dylib
+
+# 旧 deb 方案遗留文件, 不纳入仓库
+AppLockPlus.plist
+control
+
+# macOS
+.DS_Store
+
+# 编辑器
+.vscode/
+.idea/

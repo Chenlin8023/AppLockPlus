@@ -1,13 +1,14 @@
 Package: com.applockplus.refactored
-Name: AppLock+ (应用锁+ 重构版)
+Name: AppLock+ (应用锁+)
 Version: 0.4.2-1
-Architecture: iphoneos-arm64
-Description: 按应用注入式应用锁（6 位密码 + Face ID/触控 ID），免 substrate。
- 修复原版取消面容即可绕过、锁定快速返回直接解锁、密码明文存储、默认密码 0000 等问题。
- 装完不全局生效：用 Debs 导出或 Filza 取出 dylib，再用 TrollFools / JailFools
- 注入到目标 App，适合会检测越狱、无法全局注入的应用。
-Maintainer: Chenlin8023
-Author: based on tien0246/ProtectedApp
+Architecture: iphoneos-arm64e
 Section: Tweaks
 Priority: optional
+Maintainer: Chenlin8023
+Author: based on tien0246/ProtectedApp
 Depends: firmware (>= 14.0)
+Description: 按应用注入式应用锁，6 位密码 + Face ID / 触控 ID，免 substrate。
+ 本包是载体包：装完不会全局生效。dylib 位于
+ /var/mobile/Documents/AppLockPlus/AppLockPlus.dylib，
+ 用 Debs 导出或 Filza 取出，再由 TrollFools / JailFools 注入目标 App。
+ 适合会检测越狱、无法全局注入的应用。不要过 RootHide 转换器。

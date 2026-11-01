@@ -6,9 +6,10 @@ packages/
 # 构建产物不入库, 通过 GitHub Release 分发
 AppLockPlus.dylib
 
-# 旧 deb 方案遗留文件, 不纳入仓库
+# 旧 tweak 方案的过滤器（当前为 library 构建，不使用）
 AppLockPlus.plist
-control
+
+# control 纳入仓库：现在会打包成 deb 供越狱源分发
 
 # macOS
 .DS_Store

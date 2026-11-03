@@ -1,0 +1,28 @@
+Package: com.applockplus.refactored
+Name: AppLock+ (应用锁+ 重构版)
+Version: 0.4.2-1
+Architecture: iphoneos-arm64e
+Section: Tweaks
+Priority: optional
+Maintainer: Chenlin8023
+Author: based on tien0246/ProtectedApp
+Depends: firmware (>= 14.0)
+Description: 按应用注入式应用锁（6 位密码 + Face ID/触控 ID），免 substrate。
+ 本包是「载体包」：安装后把 AppLockPlus.dylib 放到设备上，供 Debs / Filza 导出，
+ 再用 TrollFools 或 JailFools 注入到目标 App，而不是全局注入 SpringBoard。
+ .
+ 适用场景：需要给个别 App 上锁、但该 App 会检测越狱或无法全局注入时，
+ 逐个 App 注入本 dylib 即可，互不影响，也不改动系统其他应用。
+ .
+ 安装后位置：
+   /var/mobile/Documents/AppLockPlus/AppLockPlus.dylib
+ .
+ 使用步骤：
+ 1. 安装本包（或在 Sileo 里用 Debs 导出、在 Filza 里取上面的 dylib）；
+ 2. 用 TrollFools / JailFools 把 AppLockPlus.dylib 注入目标 App（如 QQ、微信）；
+ 3. 冷启动目标 App，首次进入会强制设置 6 位应用锁密码；
+ 4. 面容 ID 需要宿主 App 的 Info.plist 声明 NSFaceIDUsageDescription，
+    未声明的 App 会自动只用密码解锁，不会崩。
+ .
+ 锁屏界面右上角齿轮进入设置（需先验证密码）；应用内双指双击可直接呼出设置。
+ 本包不依赖 mobilesubstrate，也不要过 RootHide 转换器。

@@ -1,0 +1,43 @@
+#!/bin/bash
+# AppLock+ 载体包：把 dylib 复制到 /var/mobile/Documents/AppLockPlus/，
+# 方便 Debs / Filza 取出，再用 TrollFools / JailFools 按应用注入。
+set -u
+
+DEST=/var/mobile/Documents/AppLockPlus
+mkdir -p "$DEST" 2>/dev/null
+
+SRC=""
+for p in \
+    /usr/lib/AppLockPlus/AppLockPlus.dylib \
+    /.jbroot/usr/lib/AppLockPlus/AppLockPlus.dylib \
+    /var/jb/usr/lib/AppLockPlus/AppLockPlus.dylib ; do
+    if [ -f "$p" ]; then SRC="$p"; break; fi
+done
+
+if [ -n "$SRC" ]; then
+    cp -f "$SRC" "$DEST/AppLockPlus.dylib" 2>/dev/null
+    chmod 644 "$DEST/AppLockPlus.dylib" 2>/dev/null
+fi
+
+[ -f "/usr/lib/AppLockPlus/README.txt" ] && cp -f "/usr/lib/AppLockPlus/README.txt" "$DEST/" 2>/dev/null
+[ -f "/.jbroot/usr/lib/AppLockPlus/README.txt" ] && cp -f "/.jbroot/usr/lib/AppLockPlus/README.txt" "$DEST/" 2>/dev/null
+
+chown -R mobile:mobile "$DEST" 2>/dev/null
+chmod 755 "$DEST" 2>/dev/null
+
+echo "=========================================================="
+echo " AppLock+ 0.4.2 已安装（按应用注入式，非全局生效）"
+echo "----------------------------------------------------------"
+echo " dylib 位置：$DEST/AppLockPlus.dylib"
+echo
+echo " 用法："
+echo "   1) 用 TrollFools / JailFools 把该 dylib 注入目标 App"
+echo "   2) 冷启动目标 App，首次进入强制设置 6 位应用锁密码"
+echo "   3) 锁屏右上角齿轮进设置；应用内双指双击呼出设置"
+echo
+echo " 注意：本包不是 SpringBoard 全局插件，装完不会自动生效，"
+echo "       必须按上面的步骤逐 App 注入。"
+echo "       也不要过 RootHide 转换器（本包已是原生 arm64e）。"
+echo "=========================================================="
+
+exit 0

@@ -46,9 +46,13 @@
 ## 三、目录结构
 
 ```
-applock-plus/
+AppLockPlus/
 ├── Tweak.m           # 全部逻辑（单文件，ARC，纯 ObjC runtime swizzle，无 Logos/substrate 依赖）
 ├── Makefile          # theos 构建配置 (library 方式, arm64, iOS 14+)
+├── carrier/          # 载体包工程（把 dylib 打成 deb 放到设备上，供 TrollFools/JailFools 注入）
+│   ├── build.sh
+│   ├── DEBIAN/       # control + postinst
+│   └── usr/lib/AppLockPlus/README.txt
 └── README.md
 ```
 
@@ -63,9 +67,17 @@ applock-plus/
 需要 [theos](https://theos.dev) 环境（macOS / Linux / WSL2 均可）：
 
 ```bash
-cd applock-plus
+cd AppLockPlus
 make FINALPACKAGE=1
 # 产物: .theos/obj/AppLockPlus.dylib (arm64, ldid 已签名)
+```
+
+载体包（deb，供越狱设备安装后取 dylib 注入）：
+
+```bash
+# 先 make 出 AppLockPlus.dylib，再打载体包
+wsl -d Ubuntu-22.04 -- bash /mnt/d/WorkBudy/iOS-Tweaks/AppLockPlus/carrier/build.sh
+# 产物: D:\WorkBudy\iOS-Tweaks\release\com.applockplus.refactored_0.4.2-1_iphoneos-arm64e.deb
 ```
 
 产物特征（`otool -L` 可自行验证）：
